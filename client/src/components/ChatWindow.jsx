@@ -12,7 +12,7 @@ import {
 
 export default function ChatWindow() {
   const [messages, setMessages] = useState([{
-    text: 'Welcome! Please enter your name:',
+    text: 'Welcome! Please enter your name',
     sender: 'bot'
   }]);
   const [step, setStep] = useState(0);

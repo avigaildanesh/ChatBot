@@ -21,6 +21,8 @@ app.use(express.json());
 app.use('/api/user', userRoutes);
 
 app.use('/api', bookingRoutes);
+const doctorRoutes = require('./routes/doctorRoutes');
+app.use('/api/doctor', doctorRoutes);
 
 // Start
 const PORT = process.env.PORT || 4000;
