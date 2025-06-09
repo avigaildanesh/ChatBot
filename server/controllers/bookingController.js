@@ -1,6 +1,6 @@
 const Appointment = require('../models/AppointmentModel');
 const AvailableSlot = require('../models/availableSlotModel');
-const googleCalendar = require('../googleCalendar');
+const googleCalendar = require('../google/googleCalendar');
 
 exports.getAvailableSlots = async (req, res) => {
   try {
