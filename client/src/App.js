@@ -47,7 +47,16 @@ export default function App() {
 
         {!isAdmin ? (
           showLoginForm ? (
-            <Paper sx={{ p: 2, width: '100%' }} elevation={3}>
+              <Paper
+                sx={{
+                  p: 3,
+                  width: '100%',
+                  maxWidth: '450px', 
+                  mx: 'auto',       
+                  boxSizing: 'border-box',
+                }}
+                elevation={3}
+              >
               <Typography variant="h6" gutterBottom>
                 {registerMode ? 'Doctor Registration' : 'Doctor Login'}
               </Typography>
@@ -66,6 +75,7 @@ export default function App() {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
               />
+              
               {errorMsg && (
                 <Typography color="error" variant="body2" mt={1}>{errorMsg}</Typography>
               )}

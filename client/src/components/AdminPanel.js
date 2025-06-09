@@ -14,7 +14,6 @@ const StyledCard = styled(Paper)(({ theme }) => ({
   padding: '20px',
   borderRadius: '20px',
   boxShadow: '0 6px 16px rgba(0,0,0,0.1)',
-  maxWidth: '450px', 
   marginTop: '10px',
   boxSizing: 'border-box',
 }));

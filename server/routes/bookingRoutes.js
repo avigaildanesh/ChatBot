@@ -1,12 +1,18 @@
+// routes/bookingRoutes.js
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/bookingController');
-console.log('📦 bookingRoutes loaded');
+const {
+  getAvailableSlots,
+  addAvailableSlot,
+  createBooking,
+  cancelBooking,
+  getAppointments
+} = require('../controllers/bookingController');
 
-router.get('/slots', controller.getAvailableSlots);
-router.post('/admin/slots', controller.addAvailableSlot);
-router.post('/book', controller.createBooking);
-router.post('/cancel', controller.cancelBooking);
-router.get('/appointments', controller.getAppointments);
+router.get('/slots', getAvailableSlots);
+router.post('/admin/slots', addAvailableSlot);
+router.post('/book', createBooking);
+router.post('/cancel', cancelBooking);
+router.get('/appointments', getAppointments);
 
 module.exports = router;
