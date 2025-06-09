@@ -11,13 +11,12 @@ const auth = new google.auth.GoogleAuth({
 
 const CALENDAR_ID = 'avigaildanesh100@gmail.com';
 
-// יצירת אירוע חדש ביומן
 async function createEvent({ name, phone, date, time }) {
   const client = await auth.getClient();
   const calendar = google.calendar({ version: 'v3', auth: client });
 
   const startDateTime = new Date(`${date}T${time}:00`);
-  const endDateTime = new Date(startDateTime.getTime() + 30 * 60 * 1000); // +30 דקות
+  const endDateTime = new Date(startDateTime.getTime() + 30 * 60 * 1000); // 30 minutes duration
 
   const event = {
     summary: `Appointment with ${name}`,
@@ -37,10 +36,9 @@ async function createEvent({ name, phone, date, time }) {
     requestBody: event,
   });
 
-  return res.data; // כולל eventId
+  return res.data;
 }
 
-// מחיקת אירוע לפי eventId
 async function deleteEvent(eventId) {
   const client = await auth.getClient();
   const calendar = google.calendar({ version: 'v3', auth: client });
@@ -51,7 +49,6 @@ async function deleteEvent(eventId) {
   });
 }
 
-// ייצוא
 module.exports = {
   createEvent,
   deleteEvent,

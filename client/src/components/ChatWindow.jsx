@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Box } from '@mui/material';
 import Message from './Message';
 import MessageInput from './MessageInput';
@@ -21,15 +21,17 @@ export default function ChatWindow() {
   const [userInfo, setUserInfo] = useState({ name: '', phone: '' });
   const endRef = useRef(null);
 
+  // any time messages change, scroll to the bottom of screen
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  // add a message from the bot or user
   const appendBot = text => setMessages(m => [...m, { text, sender: 'bot' }]);
   const appendUser = text => setMessages(m => [...m, { text, sender: 'user' }]);
 
   const handleSend = async text => {
-    appendUser(text);
+    appendUser(text); // text contain the message from the user
 
     if (step === 0) {
       const name = text.trim();
@@ -63,6 +65,7 @@ export default function ChatWindow() {
     }
 
     if (step === 2) {
+      //see available slots
       if (text === '1') {
         let data = await fetchSlots();
         data.sort((a, b) => a.date.localeCompare(b.date));
@@ -79,11 +82,12 @@ export default function ChatWindow() {
         return appendBot('Enter date to book (YYYY-MM-DD):');
       }
 
+      // book an appointment
       if (text === '2') {
         setStep(3);
         return appendBot('Enter date to book (YYYY-MM-DD):');
       }
-
+      // see my appointments
       if (text === '3') {
         const appts = await fetchMyAppointments(userInfo.name, userInfo.phone);
         if (appts.length === 0) {
@@ -103,7 +107,7 @@ export default function ChatWindow() {
           `Type "exit" to leave.`
         );
       }
-
+      // cancel an appointment
       if (text === '4') {
         const appts = await fetchMyAppointments(userInfo.name, userInfo.phone);
         if (appts.length === 0) {
@@ -123,7 +127,7 @@ export default function ChatWindow() {
         );
         return appendBot('Enter the number of the appointment you want to cancel:');
       }
-
+      // exit
       if (text.toLowerCase() === 'exit') {
         return appendBot('Goodbye! 🌸');
       }
@@ -218,7 +222,7 @@ export default function ChatWindow() {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          opacity: 0.08,
+          opacity: 0.1,
           width: '40%',
           zIndex: 0,
           pointerEvents: 'none',
@@ -227,13 +231,11 @@ export default function ChatWindow() {
         <img src="/chat-logo.png" alt="Chatbot Logo" style={{ width: '100%' }} />
       </Box>
 
-      {/* אזור ההודעות - מתגלגל */}
       <Box
         sx={{
           flex: 1,
           overflowY: 'auto',
           padding: 2,
-          backgroundColor: '#f5f5f5',
         }}
       >
         {messages.map((m, i) => (

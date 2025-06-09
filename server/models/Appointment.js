@@ -5,7 +5,7 @@ const AppointmentSchema = new mongoose.Schema({
   phone: String,
   date: String,
   time: String,
-  eventId: String, // ✅ חדש!
+  eventId: String,
 });
 
 module.exports = mongoose.model('Appointment', AppointmentSchema);

@@ -13,9 +13,9 @@ export const setAdminAuth = (u, p) => {
 // POST /api/admin/slots
 export const addAvailableSlots = ({ date, times }) =>
   api.post('/admin/slots', { date, times });
-export const createUser          = payload => api.post('/user', payload);
-export const fetchSlots          = ()      => api.get('/slots').then(r => r.data);
-export const bookAppointment     = payload => api.post('/book', payload);
+export const createUser = payload => api.post('/user', payload);
+export const fetchSlots = () => api.get('/slots').then(r => r.data);
+export const bookAppointment = payload => api.post('/book', payload);
 export const fetchMyAppointments = (name, phone) =>
   api.get('/appointments', { params: { name, phone } }).then(r => r.data);
 export const cancelAppointment = payload =>

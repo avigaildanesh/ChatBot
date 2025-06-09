@@ -4,7 +4,6 @@ import {
 } from '@mui/material';
 import ChatWindow from './components/ChatWindow';
 import AdminPanel from './components/AdminPanel';
-import Logo from './image.png';
 import { doctorLogin, doctorRegister } from './api/doctor';
 
 export default function App() {
@@ -17,9 +16,9 @@ export default function App() {
 
   const handleSubmit = async () => {
     try {
+      // doctorRegister and  doctorLogin in doctor API
       const fn = registerMode ? doctorRegister : doctorLogin;
       const res = await fn(username, password);
-      console.log('response:', res); // 👈 הוסיפי את זה
 
       if (res.error) {
         setErrorMsg(res.error);
@@ -28,12 +27,11 @@ export default function App() {
         setErrorMsg('');
       }
     } catch (err) {
-      console.error('Caught error:', err); // 👈 וגם את זה
       setErrorMsg('Server error');
     }
   };
   return (
-    <Box sx={{ display: 'flex', height: '100vh', overflowX: 'hidden' }}>
+    <Box sx={{ display: 'flex', height: '100vh' }}>
       <Box sx={{ flexBasis: '65%', backgroundColor: '#f5f5f5', overflowY: 'auto', p: 2 }}>
         <ChatWindow />
       </Box>
@@ -44,7 +42,7 @@ export default function App() {
         flexDirection: 'column', alignItems: 'center', p: 2, overflowY: 'auto'
       }}>
         <Box sx={{ mb: 2 }}>
-          <img src={Logo} alt="Logo" style={{ maxWidth: '100%', height: 100 }} />
+          <img src="/image.png" alt="Logo" style={{ maxWidth: '100%', height: 100 }} />
         </Box>
 
         {!isAdmin ? (
