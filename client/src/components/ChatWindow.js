@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Box } from '@mui/material';
 import Message from './Message';
-import axios from 'axios';
 import MessageInput from './MessageInput';
 import {
   createUser,

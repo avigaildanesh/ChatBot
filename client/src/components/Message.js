@@ -7,8 +7,8 @@ const Message = ({ text, sender }) => {
         margin: '5px 0',
         display: 'flex',
         justifyContent: sender === 'bot' ? 'flex-start' : 'flex-end',
-        position: 'relative',     // כדי שהzIndex יעבוד כראוי
-        zIndex: 20,               // מעל הלוגו
+        position: 'relative',  
+        zIndex: 20,              
       }}
     >
       <Typography
@@ -19,7 +19,7 @@ const Message = ({ text, sender }) => {
           padding: '8px 12px',
           maxWidth: '70%',
           whiteSpace: 'pre-line',
-          boxShadow: '0px 1px 3px rgba(0,0,0,0.1)', // מוסיף קצת עומק
+          boxShadow: '0px 1px 3px rgba(0,0,0,0.1)', 
         }}
       >
         {text}
