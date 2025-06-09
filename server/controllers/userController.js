@@ -1,9 +1,4 @@
-// controllers/userController.js
-const mongoose = require('mongoose');
-const User = mongoose.model('User', new mongoose.Schema({
-  name:  { type: String, required: true },
-  phone: { type: String, required: true }
-}));
+const User = require('../models/userModel');
 
 exports.createUser = async (req, res) => {
   try {
@@ -15,7 +10,6 @@ exports.createUser = async (req, res) => {
     await user.save();
     res.json({ message: 'User saved', userId: user._id });
   } catch (e) {
-    console.error(e);
     res.status(500).json({ error: 'Server error' });
   }
 };
