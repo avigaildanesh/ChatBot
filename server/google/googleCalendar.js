@@ -9,10 +9,9 @@ const auth = new google.auth.GoogleAuth({
   scopes: SCOPES,
 });
 
-const CALENDAR_ID = 'avigaildanesh100@gmail.com';
 
 // new event in Google Calendar
-async function createEvent({ name, phone, date, time, doctorEmail }) {
+async function createEvent({ name, phone, date, time, calendarId }) {
   const client = await auth.getClient();
   const calendar = google.calendar({ version: 'v3', auth: client });
 
@@ -33,7 +32,7 @@ async function createEvent({ name, phone, date, time, doctorEmail }) {
   };
 
   const res = await calendar.events.insert({
-    calendarId: doctorEmail,
+    calendarId, 
     requestBody: event,
   });
 
@@ -41,15 +40,16 @@ async function createEvent({ name, phone, date, time, doctorEmail }) {
 }
 
 // delete event from Google Calendar by eventId
-async function deleteEvent(eventId) {
+async function deleteEvent(calendarId, eventId) {
   const client = await auth.getClient();
   const calendar = google.calendar({ version: 'v3', auth: client });
 
   await calendar.events.delete({
-    calendarId: CALENDAR_ID,
+    calendarId,
     eventId,
   });
 }
+
 
 module.exports = {
   createEvent,

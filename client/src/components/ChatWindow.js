@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Box } from '@mui/material';
 import Message from './Message';
+import axios from 'axios';
 import MessageInput from './MessageInput';
 import {
   createUser,
@@ -20,7 +21,7 @@ export default function ChatWindow() {
   const [chosenDate, setChosenDate] = useState('');
   const [userInfo, setUserInfo] = useState({ name: '', phone: '' });
   const endRef = useRef(null);
-
+  
   // any time messages change, scroll to the bottom of screen
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -215,7 +216,6 @@ export default function ChatWindow() {
         zIndex: 2,
       }}
     >
-      {/* לוגו רקע שקוף בצ'אט */}
       <Box
         sx={{
           position: 'absolute',
@@ -244,7 +244,6 @@ export default function ChatWindow() {
         <div ref={endRef} />
       </Box>
 
-      {/* אזור הקלט - קבוע בתחתית */}
       <Box
         sx={{
           padding: 1,

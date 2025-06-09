@@ -13,12 +13,15 @@ export default function App() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const [email, setEmail] = useState('');
 
   const handleSubmit = async () => {
     try {
       // doctorRegister and  doctorLogin in doctor API
       const fn = registerMode ? doctorRegister : doctorLogin;
-      const res = await fn(username, password);
+      const res = registerMode
+        ? await fn(username, password, email)
+        : await fn(username, password);
 
       if (res.error) {
         setErrorMsg(res.error);
@@ -75,7 +78,17 @@ export default function App() {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
               />
-              
+              {registerMode && (
+                <TextField
+                  label="Email"
+                  type="email"
+                  fullWidth
+                  margin="dense"
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                />
+              )}
+
               {errorMsg && (
                 <Typography color="error" variant="body2" mt={1}>{errorMsg}</Typography>
               )}

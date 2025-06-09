@@ -1,6 +1,7 @@
 const Appointment = require('../models/AppointmentModel');
 const AvailableSlot = require('../models/availableSlotModel');
 const googleCalendar = require('../google/googleCalendar');
+const Doctor = require('../models/doctorModel'); 
 
 exports.getAvailableSlots = async (req, res) => {
   try {
@@ -28,9 +29,11 @@ exports.addAvailableSlot = async (req, res) => {
     await slot.save();
     res.json({ message: 'Slots added successfully' });
   } catch (err) {
+    
     res.status(500).json({ error: 'Failed to add slots' });
   }
 };
+
 
 exports.createBooking = async (req, res) => {
   try {
@@ -44,19 +47,33 @@ exports.createBooking = async (req, res) => {
       return res.status(400).json({ error: 'Selected time is not available' });
     }
 
-    const gEvent = await googleCalendar.createEvent({ name, phone, date, time });
-    const eventId = gEvent?.id;
+    const doctor = await Doctor.findOne();
+    if (!doctor) {
+      return res.status(500).json({ error: 'No doctor found in the system' });
+    }
 
-    await Appointment.create({ name, phone, date, time, eventId });
+    const calendarId = doctor.email;
 
     slot.times = slot.times.filter(t => t !== time);
-    await slot.save();
+    if (slot.times.length === 0) {
+      await AvailableSlot.deleteOne({ date });
+    } else {
+      await slot.save();
+    }
+
+    const gEvent = await googleCalendar.createEvent({ name, phone, date, time, calendarId });
+
+    const eventId = gEvent?.id;
+
+    await Appointment.create({ name, phone, date, time, eventId, calendarId });
 
     res.json({ message: 'Appointment booked successfully' });
   } catch (err) {
+    console.error('Booking error:', err);
     res.status(500).json({ error: 'Server error booking appointment' });
   }
 };
+
 
 exports.cancelBooking = async (req, res) => {
   try {

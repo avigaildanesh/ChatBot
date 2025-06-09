@@ -10,7 +10,6 @@ exports.createUser = async (req, res) => {
     const user = new User({ name: name.trim(), phone });
 
     await user.save()
-      .then(() => console.log('User saved to MongoDB!'))
       .catch(err => console.error('Error saving user:', err));
 
     res.json({ message: 'User saved', userId: user._id });

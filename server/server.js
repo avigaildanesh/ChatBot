@@ -26,7 +26,7 @@ app.use(express.json());
 // Routes
 app.use('/api/user', userRoutes);
 app.use('/api/doctor', doctorRoutes);
-app.use('/api', bookingRoutes);  // Booking endpoint (e.g., /api/book)
+app.use('/api', bookingRoutes); 
 
 // Start server
 const PORT = process.env.PORT || 4000;

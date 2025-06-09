@@ -16,6 +16,9 @@ const StyledCard = styled(Paper)(({ theme }) => ({
   boxShadow: '0 6px 16px rgba(0,0,0,0.1)',
   marginTop: '10px',
   boxSizing: 'border-box',
+  maxWidth: '400px',   
+  width: '100%',       
+  margin: '20px auto', 
 }));
 
 // Pick from predefined hours
