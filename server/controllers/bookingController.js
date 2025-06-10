@@ -82,6 +82,7 @@ exports.cancelBooking = async (req, res) => {
       return res.status(400).json({ error: 'Missing fields' });
     }
 
+    
     const appt = await Appointment.findOneAndDelete({ name, phone, date, time });
     if (!appt) return res.status(404).json({ error: 'Appointment not found' });
 
@@ -99,7 +100,7 @@ exports.cancelBooking = async (req, res) => {
 
     if (appt.eventId) {
       try {
-        await googleCalendar.deleteEvent(appt.eventId);
+        await googleCalendar.deleteEvent(appt.calendarId, appt.eventId); 
       } catch (err) {
         console.warn('Warning: Failed to delete calendar event:', err.message);
       }
