@@ -221,7 +221,7 @@ export default function ChatWindow() {
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          opacity: 0.1,
+          opacity: 0.3,
           width: '40%',
           zIndex: 0,
           pointerEvents: 'none',
