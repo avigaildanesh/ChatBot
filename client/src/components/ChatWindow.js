@@ -84,9 +84,19 @@ export default function ChatWindow() {
 
       // book an appointment
       if (text === '2') {
-        setStep(3);
+        let data = await fetchSlots()
+        data.sort((a,b) => a.date.localeCompare(b.date))
+        data.forEach(s => s.times.sort((a,b) => a.localeCompare(b)))
+        setSlots(data)
+
+        setStep(3)
+        appendBot(
+          'Available dates:\n' +
+          data.map(s => s.date).join(', ')
+        )
         return appendBot('Enter date to book (YYYY-MM-DD):');
       }
+
       // see my appointments
       if (text === '3') {
         const appts = await fetchMyAppointments(userInfo.name, userInfo.phone);
